@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+  {% for blog in articles %}
+    <div class="container">
+        <h1>{{ blog.title }}</h1>
+        <p>{{ blog.pub_date }}</p>
+        <p>{{ blog.summary }}<a href="{% url 'detail' blog.id %}">....more</a></p>
+    </div>
+    {% endfor %}
+    {% if articles.has_previous %}
+      <a href="?page=1">First</a>
+      <a href="?page={{articles.previous_page_number}}">Previous</a>
+    {% endif %}
+    <span>{{ articles.number }}</span>
+    <span>of</span>
+    <span>{{ articles.paginator.num_pages }}</span>
+    {% if articles.has_next %}
+      <a href="?page={{articles.next_page_number}}">Next</a>
+      <a href="?page={{articles.paginator.num_pages}}">last</a>
+    {% endif %}
+{% endblock %}
